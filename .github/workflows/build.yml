@@ -1,6 +1,6 @@
 # This is a basic workflow that is manually triggered
 
-name: Depedencies Example
+name: Build Example
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -21,10 +21,13 @@ jobs:
      - name: Checkout repository code 
        uses: actions/checkout@v5
 
-     - name: Set up NPM framework
-       uses: actions/setup-node@v4
+     - name: Set up NPM framework(node.js and NPM)
+       uses: actions/setup-node@v5
        with:
           node-version: '24'
+
+     - name: Install NPM dependencies
+       run: NPM install
        
-     - name: Verify directory contents
-       run: ls -alhR
+     - name: Bundle code into a zip
+       run: zip -r app-bundle.zip . -x".git/*" ".github/*"
