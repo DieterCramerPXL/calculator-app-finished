@@ -31,3 +31,14 @@ jobs:
        
      - name: Bundle code into a zip
        run: zip -r app-bundle.zip . -x".git/*" ".github/*"
+
+     - name: Run unit tests
+       run: npm test
+
+     - name: Create unit test report
+       uses: dorny/test-reporter@v1
+       if: always()
+       with:
+          name: Unit Test Report
+          path: junit.xml  
+          reporter: jest-junit
